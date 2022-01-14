@@ -1,5 +1,7 @@
 # yahoo-finance-rust-cli
 
+![Build](https://github.com/lukstei/yahoo-finance-rust-cli/actions/workflows/rust.yml/badge.svg)
+
 [![asciicast](https://asciinema.org/a/4QZc1Owwe6LJJaW6zhu8eN5eo.svg)](https://asciinema.org/a/4QZc1Owwe6LJJaW6zhu8eN5eo)
 
 Displays your configurable stock portfolio using Yahoo Finance data. It uses the WebSocket of the website to get real time (but delayed) data updates.
