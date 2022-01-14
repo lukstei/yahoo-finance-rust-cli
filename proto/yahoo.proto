@@ -1,0 +1,14 @@
+// protoc --rust_out ../src yahoo.proto
+
+syntax = "proto2";
+
+// Describes a complete .proto file.
+message YahooFinanceQuote {
+  optional string id = 1;
+  optional float price = 2;
+  optional sint64 time = 3;
+  optional string currency = 4;
+  optional float changePercent = 8;
+  optional float bid = 23;
+  optional float ask = 25;
+}

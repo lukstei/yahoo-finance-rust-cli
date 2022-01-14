@@ -1,0 +1,26 @@
+[package]
+name = "yahoo-finance-rust-cli"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+itertools = "0.10.3"
+protobuf = { version ="2" }
+base64 = "0.13.0"
+chrono = "0.4.19"
+pin-utils = "0.1.0"
+futures-util = { version = "0.3.18" }
+tokio = { version = "1", features = ["full"] }
+tokio-tungstenite = { version = "*", features=["native-tls"]}
+hyper = { version = "0.14", features = ["full"] }
+serde_json = "1.0.72"
+hyper-tls = "0.5.0"
+anyhow = "1.0"
+comfy-table = "5.0.0"
+tokio-retry = "0.3"
+
+tracing = "0.1.29"
+tracing-subscriber = { version = "0.3.3" , features=["env-filter", "registry"]}
+tracing-futures = "0.2.5"
