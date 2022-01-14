@@ -106,28 +106,10 @@ async fn main() -> anyhow::Result<()> {
 
 #[cfg(test)]
 mod tests {
-    use crate::influxdb::InfluxDB;
-    use crate::{Config, Measurement, Quote, Yahoo, YahooFinanceQuote};
-    use chrono::Utc;
+    
+    use crate::{Quote, Yahoo, YahooFinanceQuote};
+    
     use protobuf::Message;
-
-    #[test]
-    fn test_reading() {
-        tokio::runtime::Builder::new_current_thread()
-            .enable_all()
-            .build()
-            .unwrap()
-            .block_on(async {
-                let db = InfluxDB::new(Config::default().db.unwrap());
-                db.push(vec![Measurement {
-                    symbol: "test".into(),
-                    time: Utc::now(),
-                    value: 12.478377342224121,
-                }])
-                .await
-                .unwrap();
-            });
-    }
 
     #[test]
     fn test_quote() {
@@ -148,6 +130,6 @@ mod tests {
         let quote = YahooFinanceQuote::parse_from_bytes(&result).unwrap();
 
         assert_eq!(format!("{:?}", Quote::from(quote)),
-                   "Quote { symbol: \"BEKE\", time: 2021-12-07T19:12:46Z, price: 20.530000686645508, change_percent: 4.478377342224121 }");
+                   "Quote { symbol: \"BEKE\", time: 2021-12-07T19:12:46Z, price: 20.530000686645508, change: 0.04478377342224121 }");
     }
 }
