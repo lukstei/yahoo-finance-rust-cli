@@ -2,10 +2,11 @@ use crate::YahooFinanceQuote;
 use chrono::{DateTime, Local, NaiveDateTime, NaiveTime, Utc};
 use comfy_table::{Cell, CellAlignment, Color, Table};
 use itertools::Itertools;
+use serde::Deserialize;
 use std::collections::HashMap;
 use std::fmt::{Display, Formatter};
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Deserialize)]
 #[allow(clippy::upper_case_acronyms)]
 pub enum Currency {
     USD,

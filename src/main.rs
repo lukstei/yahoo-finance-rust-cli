@@ -13,6 +13,9 @@ use futures_util::{try_join, TryFutureExt};
 use pin_utils::pin_mut;
 use tokio::sync::mpsc;
 
+use clap::Parser;
+use serde::Deserialize;
+
 use crate::influxdb::Config as InfluxDBConfig;
 use crate::influxdb::{InfluxDB, Measurement};
 use crate::portfolio::Currency::EUR;
@@ -22,7 +25,13 @@ use quote_producer::QuoteProducer;
 use quote_receiver::QuoteReceiver;
 use tokio_tungstenite::tungstenite::Message;
 
-#[derive(Clone)]
+#[derive(Parser)]
+struct Cli {
+    #[clap(long, short)]
+    file: Option<String> 
+}
+
+#[derive(Clone, Deserialize)]
 pub struct Config {
     home_currency: Currency,
     portfolio: Vec<(String, f64)>,
@@ -73,7 +82,16 @@ async fn main() -> anyhow::Result<()> {
     // to enable logging, set RUST_LOG accordingly
     tracing_subscriber::fmt::init();
 
-    let config = Config::default();
+    let cli = Cli::parse();
+
+    let config = match cli.file {
+        Some(path) => {
+            let json_data = std::fs::read_to_string(path).expect("Unable to open the file");
+            serde_json::from_str(&json_data).expect("Unable to deserialize json")
+        },
+        None => Config::default()
+    };
+
     if !matches!(config.home_currency, EUR) {
         panic!("Only EUR supported as home currency for now");
     }

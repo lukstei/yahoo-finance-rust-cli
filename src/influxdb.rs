@@ -1,5 +1,6 @@
 use chrono::DateTime;
 use hyper::{Body, Client, Uri};
+use serde::Deserialize;
 use std::io::Read;
 use std::str::FromStr;
 
@@ -13,7 +14,7 @@ use hyper::client::HttpConnector;
 use tokio_tungstenite::tungstenite::http::Request;
 use tracing::instrument;
 
-#[derive(Clone)]
+#[derive(Clone, Deserialize)]
 pub struct Config {
     pub base_url: String,
     pub bucket: String,
